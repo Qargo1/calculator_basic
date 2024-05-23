@@ -45,42 +45,31 @@ function calculateResult(calculationType) {
   const enteredNumber = getUserNumberInput(); // возвращаем цифру, введеную пользователем в формате int
   const resultBeforeCalc = currentResult;
   let mathOperator;
-  if (calculationType === 'ADD') {
-    currentResult += enteredNumber;
-    mathOperator = '+';
-  } else if (calculationType === 'SUBTRACT') {
-    currentResult -= enteredNumber;
-    mathOperator = '-';
-  } else if (calculationType === 'MULTIPLY') {
-    currentResult *= enteredNumber;
-    mathOperator = '*';
-  } else if (calculationType === 'DIVIDE') {
-    currentResult /= enteredNumber;
-    mathOperator = '/';
-  } else {
-    return 'False math operator';
+  switch (calculationType) {
+    case 'ADD':
+      currentResult += enteredNumber;
+      mathOperator = '+';
+      break;
+    case 'SUBTRACT':
+      currentResult -= enteredNumber;
+      mathOperator = '-';
+      break;
+    case 'MULTIPLY':
+      currentResult *= enteredNumber;
+      mathOperator = '*';
+      break;
+    case 'DIVIDE':
+      currentResult /= enteredNumber;
+      mathOperator = '/';
+      break;
+    default:
+      return 'False math operator';
   }
   createAndWriteOutput(mathOperator, resultBeforeCalc, enteredNumber);
   writeToLog(calculationType, resultBeforeCalc, enteredNumber, currentResult);
 }
 
-function add() {
-  calculateResult('ADD');
-}
-
-function subtract() {
-  calculateResult('SUBTRACT');
-}
-
-function multiply() {
-  calculateResult('MULTIPLY');
-}
-
-function divide() {
-  calculateResult('DIVIDE');
-}
-
-addBtn.addEventListener('click', add);
-subtractBtn.addEventListener('click', subtract);
-multiplyBtn.addEventListener('click', multiply);
-divideBtn.addEventListener('click', divide);
+addBtn.addEventListener('click', calculateResult.bind(this, 'ADD'));
+subtractBtn.addEventListener('click', calculateResult.bind(this, 'SUBTRACT'));
+multiplyBtn.addEventListener('click', calculateResult.bind(this, 'MULTIPLY'));
+divideBtn.addEventListener('click', calculateResult.bind(this, 'DIVIDE'));
